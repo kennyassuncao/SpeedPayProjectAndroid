@@ -16,11 +16,24 @@ public class TelaOpcaoReceber extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
     public void irTelaChaveTransf (View View){
+
         Intent intent = new Intent(this, GerarChaveTransferencia.class);
+
+        String chave= getIntent().getStringExtra("chavetrans");
+        String valor= getIntent().getStringExtra("valortrans");
+        intent.putExtra("chavetrans",chave);
+        intent.putExtra("valortrans",valor);
+
         startActivity(intent);
     }
     public void irTelaQR (View View){
         Intent intent = new Intent(this, GerarQRCodeTransferencia.class);
+
+        String chave= getIntent().getStringExtra("chavetrans");
+        String valor= getIntent().getStringExtra("valortrans");
+        intent.putExtra("chavetrans",chave);
+        intent.putExtra("valortrans",valor);
+
         startActivity(intent);
     }
     public void irTelaAnterior (View View){

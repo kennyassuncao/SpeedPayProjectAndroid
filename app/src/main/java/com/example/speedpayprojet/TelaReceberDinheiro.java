@@ -24,6 +24,7 @@ public class TelaReceberDinheiro extends AppCompatActivity {
     }
     public void irTelaOpcaoReceber(View View){
         Intent intent = new Intent(this, TelaOpcaoReceber.class);
+
         //TODO e possivel tomar o valor logo como int
 
 
@@ -32,6 +33,8 @@ public class TelaReceberDinheiro extends AppCompatActivity {
             if (checkValue(Integer.parseInt(valor))) {
                 //Todo como enviar INtente para outro activity
                 String chave = getChave();
+                intent.putExtra("chavetrans",chave);
+                intent.putExtra("valortrans",valor);
                 startActivity(intent);
             } else {
                 alert("valor invalido");
@@ -49,7 +52,7 @@ public class TelaReceberDinheiro extends AppCompatActivity {
 
     private boolean checkValue(int valor) {
         ///TODO Ver se o valor e possivel
-        if (valor>=50 && valor<=10000) {
+        if (valor>=50 && valor<=10000000) {
             return true;
         }else{
             return false;

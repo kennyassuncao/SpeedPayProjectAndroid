@@ -20,9 +20,15 @@ public class Scan_QRCode extends AppCompatActivity {
         final Activity activity= this;
 
         IntentIntegrator integrator=new IntentIntegrator(activity);
+        integrator.setOrientationLocked(true);
+        integrator.setBeepEnabled(true);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+
+
         integrator.setPrompt("Camera Scan");
+
         integrator.setCameraId(0);
+
         integrator.initiateScan();
 
     }
@@ -35,7 +41,7 @@ public class Scan_QRCode extends AppCompatActivity {
                 if(chaveNoServidor(result.getContents())){
                     int valor=getValorDoServidor(result.getContents());
                     ///TODO trocar para "irTelaConfirmar" e enviar o valor como intent
-                    irTelaSucesso();
+                    irTelaAutenticasao();
                 }
 
 
@@ -61,8 +67,8 @@ public class Scan_QRCode extends AppCompatActivity {
     private void alert(String msg){
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
     }
-    public void irTelaSucesso (){
-        Intent intent = new Intent(this, Sucesso.class);
+    public void irTelaAutenticasao (){
+        Intent intent = new Intent(this,ConfirmarAutenticasao.class);
         startActivity(intent);
     }
 }
