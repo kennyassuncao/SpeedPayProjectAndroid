@@ -25,13 +25,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.id.view);
-        return null;
+        View v = LayoutInflater.from(context).inflate(R.layout.item,parent,false);
+        return new MyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        Historico historico =list.get(position);
+        holder.data.setText(historico.getData());
+        holder.tipoTransasao.setText(historico.getTipoTransasao());
+        holder.valorTrans.setText(historico.getValorTrans());
+        holder.saldo.setText(historico.getSaldo());
     }
 
     @Override
