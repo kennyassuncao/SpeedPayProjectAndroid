@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +53,7 @@ public class TelaRegistrar extends AppCompatActivity implements View.OnClickList
         String password = editTextPassword.getText().toString().trim();
         String fullname = editTextFullname.getText().toString().trim();
         String age = editTextAge.getText().toString().trim();
+        int money = 0;
 
         if (fullname.isEmpty()) {
             editTextFullname.setError("Deve Introduzir o nome completo!");
@@ -90,7 +90,7 @@ public class TelaRegistrar extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            User user = new User(fullname, age, email);
+                            User user = new User(fullname, age, email, money);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

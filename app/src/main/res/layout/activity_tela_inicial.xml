@@ -279,8 +279,6 @@
         android:textSize="34sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/imageView32"
-        app:layout_constraintEnd_toStartOf="@+id/imageView34"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.32" />
@@ -300,27 +298,15 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/imageView34"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="124dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView32"
-        app:layout_constraintStart_toEndOf="@+id/textView20"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.268"
-        app:srcCompat="@drawable/notificationsnone" />
-
-    <ImageView
         android:id="@+id/imageView35"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginEnd="40dp"
         android:onClick="irTelaConfiguracoes"
         app:layout_constraintBottom_toTopOf="@+id/imageView32"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.303"
-        app:layout_constraintStart_toEndOf="@+id/imageView34"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.268"
+        app:layout_constraintVertical_bias="0.43"
         app:srcCompat="@drawable/settings" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

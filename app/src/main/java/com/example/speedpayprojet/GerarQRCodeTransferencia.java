@@ -8,8 +8,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -17,6 +25,11 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class GerarQRCodeTransferencia extends AppCompatActivity {
+    private FirebaseUser user;
+    private DatabaseReference reference;
+
+    private String userID;
+
     ImageView ivQRCode;
     TextView txtView;
     @Override
@@ -27,9 +40,38 @@ public class GerarQRCodeTransferencia extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         ///TODO Receber texto Chave da outra Activity ou de o servidor
-        String chave="FxsG365Gx";
 
         iniciliarConponentes();
+
+
+        txtView = (TextView) findViewById(R.id.textView47);
+        txtView.setText(Global.receber+"$00");
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference();
+        userID = user.getUid();
+
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userprofile = snapshot.getValue(User.class);
+
+                if (userprofile != null){
+                    int money = userprofile.money;
+                    Global.saldoQuemRecebe = money;
+                    Global.userIDRecebe = userID;
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        String chave= userID+":"+Global.receber;
+        randomChave(8);
         gerarQRCode(chave);
 
         //imageView53
@@ -60,5 +102,30 @@ public class GerarQRCodeTransferencia extends AppCompatActivity {
         txtView = (TextView) findViewById(R.id.textView47);
         ivQRCode = (ImageView) findViewById(R.id.imageView53);
 
+    }
+
+    static String randomChave(int i) {
+        String theAlphaNumericS;
+        StringBuilder builder;
+
+        theAlphaNumericS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789";
+
+        //create the StringBuffer
+        builder = new StringBuilder(i);
+
+        for (int m = 0; m < i; m++) {
+
+            // generate numeric
+            int myindex
+                    = (int)(theAlphaNumericS.length()
+                    * Math.random());
+
+            // add the characters
+            builder.append(theAlphaNumericS
+                    .charAt(myindex));
+        }
+
+        return builder.toString();
     }
 }

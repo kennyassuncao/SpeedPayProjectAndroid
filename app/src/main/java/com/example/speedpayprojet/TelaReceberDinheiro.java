@@ -28,6 +28,7 @@ public class TelaReceberDinheiro extends AppCompatActivity {
 
 
             String valor= editText.getText().toString();
+            Global.receber = valor;
         if (!valor.equals("")) {
             if (checkValue(Integer.parseInt(valor))) {
                 //Todo como enviar INtente para outro activity
