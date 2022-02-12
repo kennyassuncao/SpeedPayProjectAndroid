@@ -137,7 +137,7 @@ public class ConfirmarAutenticasao extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+///
                     }
                 });
                 userInfo.setMoney(userInfo.getMoney()-Long.parseLong(transasao.getValor()));
