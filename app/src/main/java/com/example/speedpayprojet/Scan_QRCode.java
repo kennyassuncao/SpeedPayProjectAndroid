@@ -3,16 +3,23 @@ package com.example.speedpayprojet;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 
 public class Scan_QRCode extends AppCompatActivity {
-
+    DatabaseReference database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +46,24 @@ public class Scan_QRCode extends AppCompatActivity {
             if(result.getContents()!=null){
                 alert(result.getContents());
                 if(chaveNoServidor(result.getContents())){
-                    int valor=getValorDoServidor(result.getContents());
+                    String chave=result.getContents();
+                    database = FirebaseDatabase.getInstance().getReference("/Transasao/"+chave);
+
+
+
+                    database.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            irTelaAutenticasao(chave);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                     ///TODO trocar para "irTelaConfirmar" e enviar o valor como intent
-                    irTelaAutenticasao();
+
                 }
 
 
@@ -67,8 +89,10 @@ public class Scan_QRCode extends AppCompatActivity {
     private void alert(String msg){
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
     }
-    public void irTelaAutenticasao (){
+    public void irTelaAutenticasao (String chave){
+
         Intent intent = new Intent(this,ConfirmarAutenticasao.class);
+        intent.putExtra("chavetrans",chave);
         startActivity(intent);
     }
 }
