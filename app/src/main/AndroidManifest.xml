@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpeedPayProjet">
         <activity
+            android:name=".ConfirmarAutenticasao"
+            android:exported="false" />
+        <activity
             android:name=".ForgotPassword"
             android:exported="false" />
         <activity
